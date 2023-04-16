@@ -6,5 +6,5 @@
 
 select bike_number, end_time as last_used
 from dc_bikeshare_q1_2012
-order by end_time desc
+order by end_time desc;
 
