@@ -1,0 +1,39 @@
+# Problem: Find all posts which were reacted to with a heart
+
+# Database: 
+
+facebook_reactions
+poster:int
+friend:int
+reaction:varchar
+date_day:int
+post_id:int
+
+facebook_posts
+post_id:int
+poster:int
+post_text:varchar
+post_keywords:varchar
+post_date:datetime
+
+# Solution: 
+
+Select 
+   a.post_id, 
+   a.poster, 
+   a.post_text, 
+   a.post_keywords, 
+   a.post_date
+From facebook_posts a
+Inner Join ( 
+   Select distinct post_id , reaction 
+   From facebook_reactions 
+   Where reaction = 'heart'
+) as reaction on a.post_id = reaction.post_id
+
+# Output 
+
+post_id	   poster	             post_text	                post_keywords	                post_date
+   1	        1	      Lebron James is top class.	  [basketball,lebron_james,nba]	      2019-01-02
+
+
