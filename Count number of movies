@@ -1,0 +1,23 @@
+# Problem: Count the number of movies that Abigail Breslin was nominated for an oscar.
+
+# Database : 
+
+year:int
+category:varchar
+nominee:varchar
+movie:varchar
+winner:bool
+id:int
+
+# Solution :
+
+select nominee, Count(movie) as n_movies_by_abi
+From oscar_nominees
+Where nominee = 'Abigail Breslin'
+Group by nominee
+
+#Output : 
+
+nominee	             n_movies_by_abi
+Abigail Breslin	            1
+
