@@ -1,0 +1,32 @@
+# Problem: Find the base pay for Police Captains.
+# Output the employee name along with the corresponding base pay. 
+
+# Data table: 
+sf_public_salaries
+id: int
+employeename: varchar
+jobtitle: varchar
+basepay: float
+overtimepay: float
+otherpay: float
+benefits: float
+totalpay: float
+totalpaybenefits: float
+year: int
+notes: datetime
+agency: varchar
+status: varchar
+
+# Solution 
+
+Select employeename, basepay
+From sf_public_salaries
+Where jobtitle like 'CAPTAIN%'
+
+# Output 
+employeename	                  basepay
+PATRICIA JACKSON	               99722
+TERESA BARRETT	               188328.08
+ANNA BROWN	                   102571.24
+DOUGLAS MCEACHERN	             194566.01
+JOHN LOFTUS	                   188341.62
