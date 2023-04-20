@@ -1,0 +1,44 @@
+# Problem: Find the all property type that the average number of bathrooms > 1 and average bedrooms for each city’s.  
+# Output the result along with the city name and the property type.
+
+# Data table: 
+
+Unnamed: int
+id: int
+price: float
+property_type:varchar
+room_type:varchar
+amenities:varchar
+accommodates:int
+bathrooms:int
+bed_type:varchar
+cancellation_policy:varchar
+cleaning_fee:bool
+city:varchar
+host_identity_verified:varchar
+host_response_rate:varchar
+host_since:datetime
+neighbourhood:varchar
+number_of_reviews:int
+review_scores_rating:float
+zipcode:int
+bedrooms:int
+beds:int
+
+# Solution 
+
+Select 
+city, 
+property_type, 
+AVG ( CAST ( bathrooms as float)) as avg_bathrooms,
+AVG ( CAST ( bedrooms as float)) as avg_bedrooms
+From airbnb_search_details
+Group by city, property_type 
+Having AVG ( CAST ( bathrooms as float)) > 2 
+Order by avg_bathrooms desc 
+
+# Output 
+
+city	  property_type	avg_bathrooms	avg_bedrooms
+LA	       Cabin	       3	             1
+LA	       Villa	      2.067	         2.533
