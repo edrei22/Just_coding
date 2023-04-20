@@ -19,11 +19,21 @@ city:varchar
 address:varchar
 manager_id:int
 
-# Solution 
+# Solution 1 
 
 Select department, first_name, salary, avg(cast(salary as float))
 Over(partition by department) as average_salary 
 From employee
+
+# Solution 2 
+
+Select a.department, first_name, salary, avg_salary 
+From employee a
+Join (select department, avg(cast(salary as float)) as avg_salary 
+      from employee 
+       Group by department) as Aux
+on a.department = Aux.department 
+order by a.department 
 
 # Output 
 
