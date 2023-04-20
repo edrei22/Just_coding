@@ -1,0 +1,50 @@
+# Sintáxis 
+
+Select column_name 
+From table_name 
+Where Condition 1 
+Group by column_name 
+Having Condition 2 -- agg function could be used 
+Order by column_name 
+
+# Case 1 
+
+Find the countries that have more than two customers
+
+Select count(Customerid) as total_customer, Country 
+From Customers 
+Group by Country 
+Having count (customerid)>2 
+Order by total_customer desc 
+
+# Output 
+
+total_customers	    Country
+13	                  USA
+11	                France
+10	                Germany
+9	                  Brazil
+7	                    UK
+5	                   Spain
+5	                   Mexico
+4	                 Venezuela
+3	                   Italy
+3	                   Canada
+3	                 Argentina
+
+# Case 2 
+
+The following SQL statement lists if the employees "Davolio" or "Fuller" have registered more than 25 orders:
+
+SELECT Employees.LastName, COUNT(Orders.OrderID) AS NumberOfOrders
+FROM Orders
+INNER JOIN Employees ON Orders.EmployeeID = Employees.EmployeeID
+WHERE LastName = 'Davolio' OR LastName = 'Fuller'
+GROUP BY LastName
+HAVING COUNT(Orders.OrderID) > 25;
+
+# Output: 
+
+LastName	    NumberOfOrders
+Davolio	            29
+
