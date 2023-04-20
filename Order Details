@@ -1,0 +1,39 @@
+# Problem: 
+# Find order details made by Jill and Eva.
+# Consider the Jill and Eva as first names of customers.
+# Output the order date, details and cost along with the first name.
+# Order records based on the customer id in ascending order.
+
+# Data tables: 
+
+customers
+
+id:int
+first_name:varchar
+last_name:varchar
+city:varchar
+address:varchar
+phone_number:varchar
+
+orders
+
+id:int
+cust_id:int
+order_date:datetime
+order_details:varchar
+total_order_cost:int
+
+# Solution 
+
+select a.first_name, b.order_date, b.order_details, b.total_order_cost
+From Customers a
+Join Orders b 
+On a.id = b.cust_id 
+Where a.first_name IN ('Jill', 'Eva') 
+Order by a.id
+
+# Output 
+
+first_name	order_date	order_details	 total_order_cost
+Jill	      2019-04-19	    Suit	          150
+Jill	      2019-02-01	    Coat	           25
