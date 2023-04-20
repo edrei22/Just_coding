@@ -1,0 +1,30 @@
+# Problem: Find the most profitable company from the financial sector. Output the result along with the continent.
+
+# Data table: 
+
+forbes_global_2010_2014
+
+company:varchar
+sector:varchar
+industry:varchar
+continent:varchar
+country:varchar
+marketvalue:float
+sales:float
+profits:float
+assets:float
+rank:int
+forbeswebpage:varchar
+
+# Solution 
+
+select top 1 company, continent
+from forbes_global_2010_2014
+where sector = 'Financials'
+group by company, continent 
+order by sum(profits) desc 
+
+# Output 
+
+company	    continent
+ICBC	        Asia
