@@ -1,0 +1,30 @@
+# Problem: You have been asked to find the job titles of the highest-paid employees.
+# Your output should include the highest-paid title or multiple titles with the same salary.
+
+# Data tables: 
+
+worker
+worker_id:int
+first_name:varchar
+last_name:varchar
+salary:int
+joining_date:datetime
+department:varchar
+
+title
+worker_ref_id:int
+worker_title:varchar
+affected_from:datetime
+
+# Solution 
+
+Select worker_title as best_paid_title
+From worker a 
+Join title b
+On a.worker_id = b.worker_ref_id
+Group by worker_title
+Having MAX(salary) = (Select MAX(salary) from worker)
+
+#Output 
+best_paid_title
+Asst. Manager
