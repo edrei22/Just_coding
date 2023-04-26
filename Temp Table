@@ -1,0 +1,28 @@
+# The difference when you create a temp table in the sintaxis is adding this symbol # before the name of the temp_table
+create table #temp_employee2 
+(JobTitle varchar (50), 
+EmployeesPerJob int, 
+AvgAge int, 
+AvgSalary int) 
+
+# You can populate your table from another table or from a query. 
+
+# From another table: 
+Insert into #temp_employee 
+Select * 
+from [dbo].[EmployeeSalary]
+
+# From a query: 
+Insert into #temp_employee2 
+select jobtitle, count(jobtitle), avg(age), avg(salary)
+from [dbo].[EmployeeDemographics] a 
+join [dbo].[EmployeeSalary] b 
+on a.EmployeeID = b.EmployeeID
+Group by JobTitle 
+
+select * 
+from #temp_employee2
+
+# Add the following statement if you use it in a Stored Procedurem so everytime you execute the SP the temporary table will be created. 
+
+drop table if exists #temp_employee2
