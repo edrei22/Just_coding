@@ -1,0 +1,26 @@
+
+Create procedure Temp_employee 
+as ... 
+
+ALTER procedure [dbo].[Temp_employee] 
+@JobTitle nvarchar(100)
+as 
+create table #temp_employee (
+JobTitle varchar (50), 
+EmployeesPerJob int, 
+AvgAge int, 
+AvgSalary int
+) 
+insert into #temp_employee 
+select jobtitle, count(jobtitle), avg(age), avg(salary) 
+from EmployeeDemographics emp 
+join EmployeeSalary sal 
+on emp.EmployeeID = sal.EmployeeID
+where JobTitle = @JobTitle
+group by JobTitle
+
+select * 
+from #temp_employee
+
+exec Temp_employee
+@jobtitle = 'salesman'
