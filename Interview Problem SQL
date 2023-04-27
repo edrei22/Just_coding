@@ -26,7 +26,7 @@ VALUES
 (1, 'IT'), 
 (2, 'Sales');
 
-# Solution 
+# Solution 1 
 
 1. Find the highest Salaries per department, asign them a ranked value using DENSE_RANK(), this functions allows to asing a rank number to each row within a partition,
 taking ties into account, and therefore returns multiple employees if they have the same highest salary in the department. 
@@ -40,6 +40,40 @@ Join Department  Dep
 On Emp.departmentid = Dep.id 
 ) As Aux_tab
 Where ranked_salary = 1
+
+# Solution 2 Using a Common Table Expression
+
+with cte as 
+
+(Select dep.department_name, emp.name, emp.salary, 
+dense_rank () over (partition by department_name order by salary desc) as ranked_salary
+from [dbo].[Employee] emp
+join [dbo].[Department] dep
+on emp.departmentid = dep.id) 
+
+Select * 
+from cte 
+where ranked_salary = 1
+
+# Solution 3 Creating a temporary table
+
+create table #temp_tab (
+department_name varchar (50), 
+name varchar (50), 
+salary int, 
+ranked_salary int
+)
+
+insert into #temp_tab
+(Select dep.department_name, emp.name, emp.salary, 
+dense_rank () over (partition by department_name order by salary desc) as ranked_salary
+from [dbo].[Employee] emp
+join [dbo].[Department] dep
+on emp.departmentid = dep.id
+
+select * 
+from #temp_globant
+where ranked_salary = 1 
 
 # Output 
   department_name, name, salary
