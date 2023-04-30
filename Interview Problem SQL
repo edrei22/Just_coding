@@ -28,8 +28,8 @@ VALUES
 
 # Solution 1 
 
-1. Find the highest Salaries per department, asign them a ranked value using DENSE_RANK(), this functions allows to asing a rank number to each row within a partition,
-taking ties into account, and therefore returns multiple employees if they have the same highest salary in the department. 
+1. Find the highest Salaries per department, asign them a ranked value using DENSE_RANK(), this functions allows to asing a rank number to each row within a 
+partition, taking ties into account, and therefore returns multiple employees if they have the same highest salary in the department. 
 
 Select department_name, name, salary
 From (
