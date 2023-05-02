@@ -1,0 +1,42 @@
+# Problem : Find the average total compensation based on employee titles and gender. 
+# Total compensation is calculated by adding both the salary and bonus of each employee. 
+# However, not every employee receives a bonus so disregard employees without bonuses in your calculation. Employee can receive more than one bonus.
+# Output the employee title, gender (i.e., sex), along with the average total compensation.
+
+# Data tables: 
+
+sf_employee
+id:int
+first_name:varchar
+last_name:varchar
+age:int
+sex:varchar
+employee_title:varchar
+department:varchar
+salary:int
+target:int
+email:varchar
+city:varchar
+address:varchar
+manager_id:int
+
+sf_bonus
+worker_ref_id:int
+bonus:int
+
+# Solution:
+
+select emp.employee_title, emp.sex as gender, avg (salary + sumbonus) as total_salary 
+from sf_employee emp
+join (select worker_ref_id, sum (bonus) as sumbonus
+      from sf_bonus 
+      group by worker_ref_id) as bon 
+on emp.id = bon.worker_ref_id
+group by emp.employee_title, emp.sex
+order by gender desc
+
+# Output:
+
+employee_title	gender	total_salary
+    Auditor     	M	       2200
+     Sales	      M	       4600
