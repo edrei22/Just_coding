@@ -1,0 +1,21 @@
+with cte as (
+                 select 
+                    cust.id, 
+                    cust.first_name, 
+                    ord.order_date, 
+                    sum(ord.total_order_cost) as sum_cost
+                from customers cust
+                join orders ord
+                on cust.id = ord.cust_id
+                where ord.order_date between '2019-02-01' and '2019-05-01'
+                group by cust.id,cust.first_name, ord.order_date
+), 
+aux_tab as 
+( 
+    select *, 
+    dense_rank() over(partition by order_date order by sum_cost desc ) as max_cost
+    from cte 
+) 
+select first_name,  sum_cost as total_order_cost, order_date
+from aux_tab
+where sum_cost = (select max(sum_cost) from aux_tab)
