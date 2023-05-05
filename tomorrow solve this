@@ -1,3 +1,4 @@
+Temporary table
 with cte as (
                  select 
                     cust.id, 
