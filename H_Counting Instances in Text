@@ -1,0 +1,25 @@
+# Problem: Find the number of times the words 'bull' and 'bear' occur in the contents. 
+# We're counting the number of times the words occur so words like 'bullish' should not be included in our count.
+# Output the word 'bull' and 'bear' along with the corresponding number of occurrences.
+
+# Data table: 
+
+google_file_store
+filename:varchar
+contents:varchar
+
+# Solution 
+
+select 'bull' as word, 
+sum(case when contents like '%[^a-zA-Z]bull[^a-zA-Z]%' then 1 else 0 end) as word_count 
+from google_file_store
+union 
+select 'bear', 
+sum(case when contents like '%[^a-zA-Z]bear[^a-zA-Z]%' then 1 else 0 end)
+from google_file_store
+
+# Output: 
+
+word	word_count
+bull	   3
+bear	   2
