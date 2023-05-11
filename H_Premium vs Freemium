@@ -31,6 +31,8 @@ with cte as (
 select date, sum(non_paying) as non_paying, sum(paying) as paying
 from cte 
 group by date 
+having sum(non_paying) > sum(paying)
+order by date 
 
 # Output 
 
