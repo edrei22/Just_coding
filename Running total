@@ -1,0 +1,21 @@
+# Sliding windows allow you to create running calculations between any two points in a window using functions such as PRECEDING, FOLLOWING, and CURRENT ROW. 
+# You can calculate running counts, sums, averages, and other aggregate functions between any two points you specify in the data set.
+
+# In this exercise, you will expand on the examples discussed in the video, calculating the running total of goals scored by the FC Utrecht when they were 
+# the home team during the 2011/2012 season. Do they score more goals at the end of the season as the home or away team?
+
+# Solution 
+
+select 
+date, home_goal, away_goal, 
+sum (home_goal) over (order by season rows between unbounded preceding and current row) as running_total, 
+avg (home_goal) over (order by season rows between unbounded preceding and current row) as running_avg
+from match 
+where 
+hometeam_id = 9908 and 
+season = '2011/2012'
+
+# Output 
+date	         home_goal	      away_goal	      running_total	       running_avg
+2011-10-22	       1	            4                 1	                 1.00000000000000000000
+2011-11-06	       6	            4	                7	                 3.5000000000000000
